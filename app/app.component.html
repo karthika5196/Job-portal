@@ -1,0 +1,55 @@
+<h1 style="text-align: center;">Employee Registration Form</h1>
+<div class="container">
+  <form #myForm="ngForm">
+    <div class="form-group">
+      <div class="avatar-upload">
+        <div class="avatar-edit">
+          <img [src]="url" height="140px" width="140px">
+          <input type="file" id="imageUpload" name="image" (change)="onSelect($event.target)" id="logo" accept=".png, .jpg, .jpeg"
+            #fileInput />
+        </div>
+      </div>
+      <label for="exampleInputEmail">Job Title</label>
+      <input type="text" class="form-control" name="jobtitle" list="browsers" id="exampleInputEmail"
+        [(ngModel)]="jobObj.jobtitle">
+      <datalist id="browsers">
+        <option value="Junior Engineer">
+        <option value="Senior Engineer">
+        <option value=" Project Manager">
+        <option value="Senior Manager">
+
+      </datalist>
+
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail">Job description</label>
+      <textarea type="text" class="form-control" name="jobdescription" [(ngModel)]="jobObj.jobdescription"></textarea>
+
+    </div>
+    <button type="button" class="btn btn-primary" (click)="addJob(myForm.value)" *ngIf="!isEdit">Submit</button>
+    <button type="button" class="btn btn-info" *ngIf="isEdit" (click)="updateJob()">Update</button>
+  </form>
+
+  <table class="table table-light table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">jobtitle</th>
+        <th scope="col">jobdescription</th>
+        <th scope="col">Image</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of allJob">
+        <th scope="row">{{job.id}}</th>
+        <td>{{job.jobtitle}}</td>
+        <td>{{job.jobdescription}}</td>
+        <td>{{job.image}}</td>
+        <td><button (click)="editJob(job)" class="btn btn-warning">Edit</button></td>
+        <td><button (click)="deleteJob(job)" class="btn btn-danger">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
